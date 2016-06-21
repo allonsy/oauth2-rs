@@ -41,3 +41,7 @@ user_code.pop();
 let tok = conf.exchange(user_code).unwrap();
 println!("access code is: {}", tok.access_token);
 ```
+
+## Contributing
+* I gladly accept all PRs
+* Please feel free to submit any issues for issues and/or feature requests
