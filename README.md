@@ -1,7 +1,7 @@
 # oauth2-rs-curl3
 A fork of [oauth2-rs](https://github.com/alexcrichton/oauth2-rs)
 
-* However, I have support for the newest versions of the dependencies, including curl3.
+* However, I have support for the newest versions of the dependencies, including `curl` version `0.3.0` and url version `1.1.1`.
 * The interface is exactly the same as the base repository
 
 As an example, follow the example here:
