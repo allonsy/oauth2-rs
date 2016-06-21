@@ -27,6 +27,22 @@ pub struct Token {
     pub token_type: String,
 }
 
+struct ErrorContainer {
+    error : String,
+    error_desc : String,
+    error_uri : String
+}
+
+impl ErrorContainer {
+    fn new() -> ErrorContainer {
+        ErrorContainer {
+            error: String::new(),
+            error_desc: String::new(),
+            error_uri: String::new()
+        }
+    }
+}
+
 macro_rules! try_error_to_string {
     ($e:expr) => (match $e {
         Ok(val) => val,
@@ -104,15 +120,15 @@ impl Config {
             scopes: Vec::new(),
             token_type: String::new(),
         };
-        let error = String::new();
-        let error_desc = String::new();
-        let error_uri = String::new();
 
         let protector = Arc::new(Mutex::new(token));
         let result_ref = protector.clone();
+        let error_strings = Arc::new(Mutex::new(ErrorContainer::new()));
+        let error_strings_copy = error_strings.clone();
 
         try_error_to_string!(easy.write_function(move |data| {
             let mut result_token = result_ref.lock().unwrap();
+            let mut err_cont = error_strings_copy.lock().unwrap();
 
             let result_form = url::form_urlencoded::parse(data);
             for(k, v) in result_form.into_iter() {
@@ -123,9 +139,9 @@ impl Config {
                         result_token.scopes = v.split(',')
                                         .map(|s| s.to_string()).collect();
                     },
-                    // "error" => error = (*v).to_owned(),
-                    // "error_description" => error_desc = (*v).to_owned(),
-                    // "error_uri" => error_uri = (*v).to_owned(),
+                     "error" => err_cont.error = (*v).to_owned(),
+                     "error_description" => err_cont.error_desc = (*v).to_owned(),
+                     "error_uri" => err_cont.error_uri = (*v).to_owned(),
                     _ => {}
                 }
             }
@@ -140,10 +156,12 @@ impl Config {
         }
 
         let new_token = protector.lock().unwrap();
+        let new_errors = error_strings.lock().unwrap();
+
         if new_token.access_token.len() != 0 {
             Ok(new_token.clone())
-        } else if error.len() > 0 {
-            Err(format!("error `{}`: {}, see {}", error, error_desc, error_uri))
+        } else if new_errors.error.len() > 0 {
+            Err(format!("error `{}`: {}, see {}", new_errors.error, new_errors.error_desc, new_errors.error_uri))
         } else {
             Err(format!("couldn't find access_token in the response"))
         }
