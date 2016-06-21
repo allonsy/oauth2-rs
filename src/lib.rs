@@ -85,17 +85,19 @@ impl Config {
         }
 
         let form_str : String = form.finish();
+        let post_len = form_str.as_bytes().len();
 
         let mut easy = Easy::new();
         try_error_to_string!(easy.url(&self.token_url.to_string()));
-        try_error_to_string!(easy.post(true));
         let mut list = List::new();
         try_error_to_string!(list.append("Content-Type: application/x-www-form-urlencoded"));
         try_error_to_string!(easy.http_headers(list));
-
+        try_error_to_string!(easy.show_header(true));
         try_error_to_string!(easy.read_function(move |buf| {
             Ok(form_str.as_bytes().read(buf).unwrap_or(0))
         }));
+        try_error_to_string!(easy.post(true));
+        try_error_to_string!(easy.post_field_size(post_len as u64));
 
         let token = Token {
             access_token: String::new(),
