@@ -1,4 +1,4 @@
-# oauth2-rs with curl 0.3
+# oauth2 with curl 0.3
 A fork of [oauth2-rs](https://github.com/alexcrichton/oauth2-rs)
 
 * However, I have support for the newest versions of the dependencies, including `curl` version `0.3.0` and url version `1.1.1`.
@@ -8,7 +8,7 @@ A fork of [oauth2-rs](https://github.com/alexcrichton/oauth2-rs)
 As an example, follow the example here:
 ```rust
 extern crate rustc_serialize;
-extern crate oauth2;
+extern crate oauth-api;
 
 use rustc_serialize::json;
 use std::fs::File;

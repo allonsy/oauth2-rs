@@ -5,7 +5,7 @@
 //!
 //! ```rust,no_run,ignore
 //! extern crate rustc_serialize;
-//! extern crate oauth2;
+//! extern crate oauth-api;
 //!
 //! use rustc_serialize::json;
 //! use std::fs::File;
