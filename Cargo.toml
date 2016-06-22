@@ -1,9 +1,10 @@
 [package]
 name = "oauth-api"
 authors = ["Alec S (allonsy) <linuxbash8@gmail.com>"]
-version = "0.2.1"
+version = "0.2.2"
 license = "MIT/Apache-2.0"
 description = "Bindings for exchanging OAuth 2 tokens with updated dependencies"
+documentation = "https://allonsy.github.io/oauth2-rs/oauth2"
 homepage = "https://allonsy.github.io/oauth2-rs/oauth2"
 repository = "https://github.com/allonsy/oauth2-rs"
 
