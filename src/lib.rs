@@ -1,9 +1,9 @@
 #![cfg_attr(test, deny(warnings))]
 //! A library for making oauth2 requests with updated depencies like curl 0.3.0
 //!
-//! An example:
+//! # Examples
 //!
-//! ```rust,no_run
+//! ```rust,no_run,ignore
 //! extern crate rustc_serialize;
 //! extern crate oauth2;
 //!

@@ -3,6 +3,7 @@ A fork of [oauth2-rs](https://github.com/alexcrichton/oauth2-rs)
 
 * However, I have support for the newest versions of the dependencies, including `curl` version `0.3.0` and url version `1.1.1`.
 * The interface is exactly the same as the base repository
+* Documentation available [here](https://allonsy.github.io/oauth2-rs/oauth2)
 
 As an example, follow the example here:
 ```rust
