@@ -56,7 +56,7 @@ macro_rules! try_error_to_string {
 /// This trait allows chaining the correct authorization headers onto a curl
 /// request via the builder style.
 pub trait Authorization {
-    fn auth_with(self, token: &Token) -> Self;
+    fn auth_with(&mut self, token: &Token) -> Result<(), curl::Error>;
 }
 
 impl Config {
@@ -274,9 +274,15 @@ fn error_to_string(e : curl::Error) -> String {
     return err_str.to_string();
 }
 
-// impl<'a, 'b> Authorization for http::Request<'a, 'b> {
-//     fn auth_with(self, token: &Token) -> http::Request<'a, 'b> {
-//         self.header("Authorization",
-//                     &format!("token {}", token.access_token))
-//     }
-// }
+impl Authorization for curl::easy::Easy{
+    fn auth_with(&mut self, token: &Token) -> Result<(), curl::Error> {
+        let mut auth_header = List::new();
+        let auth_header_text = format!("Authorization: {}", token.access_token);
+        let res = auth_header.append(&auth_header_text);
+        if res.is_ok() {
+            self.http_headers(auth_header)
+        } else {
+            res
+        }
+    }
+}
