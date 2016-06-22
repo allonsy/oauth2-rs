@@ -20,10 +20,14 @@ pub struct Config {
     pub redirect_url: String,
 }
 
+/// Represents a Token struct
 #[derive(Debug, Clone, PartialEq, Eq, Ord, PartialOrd)]
 pub struct Token {
+    /// access token used to authenticate queries
     pub access_token: String,
+    /// A vec of scopes
     pub scopes: Vec<String>,
+    /// 'bearer', etc...
     pub token_type: String,
 }
 
@@ -51,7 +55,7 @@ macro_rules! try_error_to_string {
 }
 
 
-/// Helper trait for extending the builder-style pattern of curl::Request.
+/// Helper trait for extending the builder-style pattern of curl::easy::Easy.
 ///
 /// This trait allows chaining the correct authorization headers onto a curl
 /// request via the builder style.
@@ -60,6 +64,8 @@ pub trait Authorization {
 }
 
 impl Config {
+
+    /// Generates a new config from the given fields
     pub fn new(id: &str, secret: &str, auth_url: &str,
                token_url: &str) -> Config {
         Config {
@@ -73,6 +79,7 @@ impl Config {
     }
 
     #[allow(deprecated)] // connect => join in 1.3
+    /// Generates an auth url to visit from the infomation in the config struct
     pub fn authorize_url(&self, state: String) -> Url {
         let scopes = self.scopes.connect(",");
         let mut pairs = vec![
@@ -91,6 +98,10 @@ impl Config {
         return url;
     }
 
+    /// Given a code (obtained from the authorize_url) and varies by service.
+    /// exchange will then make a POST request with the code and attempt to retrieve an access token.
+    /// On success, the token is returned as a Result. On failure, a string with an error description
+    /// is returned as a Result
     pub fn exchange(&self, code: String) -> Result<Token, String> {
         let mut form = url::form_urlencoded::Serializer::new(String::new());
         form.append_pair("client_id", &self.client_id.clone());
@@ -274,6 +285,8 @@ fn error_to_string(e : curl::Error) -> String {
     return err_str.to_string();
 }
 
+/// Given a curl::easy::Easy and a `Token` struct, it adds the Authorization: access_token header
+/// to the request. It return curl::Error when adding the header fails.
 impl Authorization for curl::easy::Easy{
     fn auth_with(&mut self, token: &Token) -> Result<(), curl::Error> {
         let mut auth_header = List::new();
