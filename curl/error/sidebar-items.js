@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Error","An error returned from various \"easy\" operations."],["MultiError","An error from \"multi\" operations."],["ShareError","An error returned from \"share\" operations."]]});
