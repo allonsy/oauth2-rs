@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-11' class='srclink' href='../src/oauth2/src/lib.rs.html#14-21' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-11' class='srclink' href='../src/oauth2/src/lib.rs.html#55-62' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Config {
     pub client_id: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,
     pub client_secret: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,
@@ -64,9 +64,15 @@
                              <td id='structfield.auth_url'><code>auth_url</code></td><td></td></tr><tr class='stab '>
                              <td id='structfield.token_url'><code>token_url</code></td><td></td></tr><tr class='stab '>
                              <td id='structfield.redirect_url'><code>redirect_url</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../oauth2/struct.Config.html' title='oauth2::Config'>Config</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(id: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, secret: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, auth_url: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, token_url: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../oauth2/struct.Config.html' title='oauth2::Config'>Config</a></code></h4>
-<h4 id='method.authorize_url' class='method'><code>fn <a href='#method.authorize_url' class='fnname'>authorize_url</a>(&amp;self, state: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../url/struct.Url.html' title='url::Url'>Url</a></code></h4>
-<h4 id='method.exchange' class='method'><code>fn <a href='#method.exchange' class='fnname'>exchange</a>(&amp;self, code: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../oauth2/struct.Token.html' title='oauth2::Token'>Token</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h4>
-</div></section>
+<div class='docblock'><p>Generates a new config from the given fields</p>
+</div><h4 id='method.authorize_url' class='method'><code>fn <a href='#method.authorize_url' class='fnname'>authorize_url</a>(&amp;self, state: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../url/struct.Url.html' title='url::Url'>Url</a></code></h4>
+<div class='docblock'><p>Generates an auth url to visit from the infomation in the config struct</p>
+</div><h4 id='method.exchange' class='method'><code>fn <a href='#method.exchange' class='fnname'>exchange</a>(&amp;self, code: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../oauth2/struct.Token.html' title='oauth2::Token'>Token</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h4>
+<div class='docblock'><p>Given a code (obtained from the authorize_url) and varies by service.
+exchange will then make a POST request with the code and attempt to retrieve an access token.
+On success, the token is returned as a Result. On failure, a string with an error description
+is returned as a Result</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

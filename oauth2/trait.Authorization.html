@@ -47,10 +47,10 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-129' class='srclink' href='../src/oauth2/src/lib.rs.html#58-60' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-129' class='srclink' href='../src/oauth2/src/lib.rs.html#103-105' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Authorization {
     fn <a href='#tymethod.auth_with' class='fnname'>auth_with</a>(&amp;mut self, token: &amp;<a class='struct' href='../oauth2/struct.Token.html' title='oauth2::Token'>Token</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../curl/error/struct.Error.html' title='curl::error::Error'>Error</a>&gt;;
-}</pre><div class='docblock'><p>Helper trait for extending the builder-style pattern of curl::Request.</p>
+}</pre><div class='docblock'><p>Helper trait for extending the builder-style pattern of curl::easy::Easy.</p>
 
 <p>This trait allows chaining the correct authorization headers onto a curl
 request via the builder style.</p>
